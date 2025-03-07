@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      >
+<h:head>
+    <title>Seleção de Evento</title>
+</h:head>
+<h:body>
+    <h:form>
+        <h:outputLabel for="event" value="Selecione o Evento: " />
+        <p:selectOneMenu id="event" value="#{eventBean.selectedEvent}">
+            <f:selectItem itemLabel="Selecione" itemValue="" />
+            <f:selectItems value="#{eventBean.events}" />
+        </p:selectOneMenu>
+        <p:commandButton value="Consultar" action="consulta?faces-redirect=true" update="@form"/>
+    </h:form>
+</h:body>
+</html>

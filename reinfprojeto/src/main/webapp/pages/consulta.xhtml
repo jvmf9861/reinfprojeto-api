@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+<h:head>
+	<title>Consulta</title>
+</h:head>
+<h:body>
+	<h:form>
+		<p:dataTable var="Record" value="#{consultaBean.filteredconsultaBean}">
+			<p:column headerText="CNPJ">
+				<h:outputText value="#{Record.cnpj10}" />
+			</p:column>
+	
+			<p:column headerText="Nat. Rendimento">
+				<h:outputText value="#{Record.natRend}" />
+			</p:column>
+			<p:column headerText="Data FG">
+				<h:outputText value="#{Record.dtFG}" />
+			</p:column>
+			<p:column headerText="Valor Bruto">
+				<h:outputText value="#{Record.vlrBruto}" />
+			</p:column>
+			<p:column headerText="Base Agregada">
+				<h:outputText value="#{Record.vlrBaseAgreg}" />
+			</p:column>
+			<p:column headerText="Valor Agregado">
+				<h:outputText value="#{Record.vlrAgreg}" />
+			</p:column>
+			<p:column headerText="Código DARF">
+				<h:outputText value="#{Record.codDarf}" />
+			</p:column>
+			<p:column headerText="Selecione">
+				<p:selectBooleanCheckbox value="#{Record.selected}" />
+			</p:column>
+		</p:dataTable>
+		<p:commandButton value="Gerar XMLs"
+			action="#{Record.generateXMLs}" update="@form" />
+	</h:form>
+</h:body>
+</ui:composition>
+
+

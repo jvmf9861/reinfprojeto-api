@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<h:head>
+	<title>Api Reinf</title>
+
+	<style>
+.header-container {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: linear-gradient(#085d93, #a6d4f2, #063970);
+	padding: 5px 10px;
+	border-radius: 5px;
+	color: #37474f;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-logo {
+	max-height: 50px;
+}
+
+.header-title {
+	font-size: 1.3em;
+	margin: 0;
+}
+
+body {
+	background: linear-gradient(135deg, #1e81b0, #085d93, #154c79);
+	color: #37474f;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.center-text {
+	text-align: center;
+}
+
+.right-text {
+	text-align: right;
+}
+
+.header-blue th {
+	background: linear-gradient(135deg, #d1e7f9, #a6d4f2) !important;
+	color: #37474f !important;
+	border-bottom: 2px solid #75c1eb !important;
+}
+
+.button-blue {
+	background: linear-gradient(#085d93, #a6d4f2, #063970) !important;
+	border: none;
+	color: #37474f !important;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background 0.3s ease, transform 0.3s ease;
+	display: inline-block;
+}
+
+.button-blue:hover {
+	background: linear-gradient(135deg, #75c1eb, #5aa3d8) !important;
+	transform: scale(1.05);
+}
+
+.container {
+	width: 97%;
+	margin: 0 auto;
+	padding: 20px;
+	background-color: rgba(255, 255, 255, 0.85);
+	border-radius: 10px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-section {
+	margin-bottom: 20px;
+}
+
+.buttons {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+
+.data-table {
+	margin-top: 20px;
+}
+
+.title-background {
+	background: linear-gradient(135deg, #d1e7f9, #a6d4f2);
+	padding: 5px;
+	border-radius: 5px;
+	color: #37474f;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.paginator {
+	background-color: rgba(255, 255, 255, 0.85);
+	border: none;
+	color: #37474f;
+}
+
+.ui-datatable-header {
+	background: linear-gradient(135deg, #d1e7f9, #a6d4f2);
+	border-bottom: 2px solid #75c1eb;
+	color: #37474f;
+}
+
+.ui-datatable .ui-datatable-data>tr {
+	border-bottom: 1px solid #b0bec5;
+}
+
+.ui-datatable .ui-datatable-data>tr:hover {
+	background-color: rgba(224, 242, 241, 0.85);
+}
+
+.ui-datatable .ui-state-active {
+	background-color: #d1e7f9 !important;
+}
+
+.select-one-menu {
+	width: 98.8%;
+	border: 1px solid #d1e7f9;
+	border-radius: 5px;
+	background-color: #d1e7f9;
+	color: #37474f;
+	padding: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para o checkbox */
+.ui-chkboxx {
+	background-color: green; /* Fundo verde */
+	border: 1px solid #ccc; /* Borda cinza clara */
+	width: 20px; /* Largura do checkbox */
+	height: 20px; /* Altura do checkbox */
+	display: inline-block; /* Mantém o alinhamento */
+	position: relative; /* Necessário para o tick */
+}
+
+/* Estilo do "tick" quando marcado */
+.ui-chkboxx input[type="checkbox"]:checked::after {
+	content: '\2713'; /* Símbolo do tick ✔ */
+	position: absolute; /* Posiciona relativo ao pai */
+	top: 50%; /* Centraliza verticalmente */
+	left: 50%; /* Centraliza horizontalmente */
+	transform: translate(-50%, -50%); /* Ajusta para o centro exato */
+	color: white; /* Tick branco */
+	font-size: 14px; /* Tamanho do tick */
+}
+
+/* Adicionando uma borda ou efeito ao hover */
+.ui-chkboxx:hover {
+	background-color: #008000; /* Um verde mais escuro no hover */
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Leve sombra */
+}
+</style>
+</h:head>
+
+<h:body>
+	<div class="container">
+
+		<div class="header-container">
+			<!-- Logotipo -->
+			<h:graphicImage name="imagens/trf2.png" alt="Logo TRF2"
+				class="header-logo" />
+
+			<!-- Título -->
+			<h2 class="header-title">API EFD-REINF - Gerenciador de Eventos</h2>
+		</div>
+
+		<p:messages id="messages" autoUpdate="true" closable="true" />
+		<p:growl id="growl" showDetail="true" life="5000" autoUpdate="true" />
+
+
+		<h:form>
+
+			<div class="form-section">
+				<p:selectOneMenu id="event" value="#{mainBean.selectedEvent}"
+					styleClass="select-one-menu" required="true"
+					requiredMessage="Você deve selecionar um evento e carregar os dados.">
+					<f:selectItem itemLabel="Selecione um evento" itemValue="" />
+					<f:selectItem itemLabel="DDF021" itemValue="DDF021" />
+					<f:selectItem itemLabel="DDF009" itemValue="DDF009" />
+					<f:selectItem itemLabel="DDF025" itemValue="DDF025" />
+				    <p:ajax event="change" listener="#{mainBean.loadBean}" update="dataTable" />
+					
+				</p:selectOneMenu>
+			</div>
+
+			<div class="buttons">
+				<p:commandButton value="Carregar Dados"
+					action="#{mainBean.loadAndFilterData}" update="dataTable"
+					process="@this event" styleClass="button-blue" />
+
+				<p:commandButton value="Executar Programa"
+					action="#{mainBean.loadAndExecuteProgram}" process="@this event"
+					update="messages dataTable" styleClass="button-blue" />
+
+			</div>
+			<c:if test="#{mainBean.selectedEvent ne 'DDF021'}">
+
+				<p:dataTable id="dataTable" value="#{mainBean.currentBean.filteredData}"
+					var="item" 
+					emptyMessage="Não há dados disponíveis"
+					styleClass="data-table"
+					scrollable="true" 
+					scrollHeight="500"
+					rows="20" 
+					paginator="true"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+					
+					<p:column headerText="Situação" styleClass="center-text"
+						headerStyleClass="header-blue th" sortBy="#{item.evento}">
+						<h:outputText value="#{item.evento}" />
+					</p:column>
+
+					<p:column headerText="Recolhedor" styleClass="center-text"
+						headerStyleClass="header-blue th" sortBy="#{item.cnpj}">
+						<h:outputText value="#{item.cnpj}" />
+					</p:column>
+
+					<p:column headerText="Período Apuração" styleClass="center-text"
+						headerStyleClass="header-blue th" sortBy="#{item.dtFG}">
+						<h:outputText value="#{item.dtFG}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Natureza do Rendimento"
+						styleClass="center-text" headerStyleClass="header-blue th">
+						<h:outputText value="#{item.natRend}" />
+					</p:column>
+
+					<p:column headerText="Base de Cálculo" styleClass="right-text"
+						headerStyleClass="header-blue th">
+						<h:outputText value="#{item.vlrBruto}">
+							<f:convertNumber type="number" minFractionDigits="2"
+								maxFractionDigits="2" groupingUsed="true" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Valor Receita" styleClass="right-text"
+						headerStyleClass="header-blue th">
+						<h:outputText value="#{item.vlrAgreg}">
+							<f:convertNumber type="number" minFractionDigits="2"
+								maxFractionDigits="2" groupingUsed="true" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Código DARF" styleClass="center-text"
+						headerStyleClass="header-blue th">
+						<h:outputText value="#{item.codDarf}" />
+					</p:column>
+
+					<p:column headerText="Executado" styleClass="center-text"
+						headerStyleClass="header-blue th">
+						<h:selectBooleanCheckbox value="#{item.executado}"
+							disabled="false" styleClass="ui-chkboxx" />
+					</p:column>
+
+				</p:dataTable>
+			</c:if>
+
+			<c:if test="#{mainBean.selectedEvent eq 'DDF021'}">
+				<p:dataTable id="dataTable" value="#{mainBean.currentBean.filteredData}"
+					var="item10" emptyMessage="Não há dados disponíveis"
+					styleClass="data-table" scrollable="true" scrollHeight="500"
+					rows="20" paginator="true"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+					<p:column headerText="CNPJ" styleClass="center-text"
+						headerStyleClass="header-blue th" sortBy="#{item10.cnpj}">
+						<h:outputText value="#{item10.cnpj}" />
+					</p:column>
+					<p:column headerText="Nota Fiscal" styleClass="center-text"
+						headerStyleClass="header-blue th" sortBy="#{item10.nf}">
+						<h:outputText value="#{item10.nf}" />
+					</p:column>
+					<p:column headerText="Data" styleClass="center-text"
+						headerStyleClass="header-blue th" sortBy="#{item10.dtFG}">
+						<h:outputText value="#{item10.dtFG}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Valor NF" styleClass="right-text"
+						headerStyleClass="header-blue th">
+						<h:outputText value="#{item10.vlrNf}">
+							<f:convertNumber type="number" minFractionDigits="2"
+								maxFractionDigits="2" groupingUsed="true" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Valor Base Calculo GPS"
+						styleClass="right-text" headerStyleClass="header-blue th">
+						<h:outputText value="#{item10.vlrBaseAgreg}">
+							<f:convertNumber type="number" minFractionDigits="2"
+								maxFractionDigits="2" groupingUsed="true" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Valor GPS" styleClass="right-text"
+						headerStyleClass="header-blue th">
+						<h:outputText value="#{item10.vlrAgreg}">
+							<f:convertNumber type="number" minFractionDigits="2"
+								maxFractionDigits="2" groupingUsed="true" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Executado" styleClass="center-text"
+						headerStyleClass="header-blue th">
+						<h:selectBooleanCheckbox value="#{item10.executado}"
+							disabled="false" styleClass="ui-chkboxx" />
+					</p:column>
+				</p:dataTable>
+			</c:if>
+		</h:form>
+	</div>
+</h:body>
+</html>

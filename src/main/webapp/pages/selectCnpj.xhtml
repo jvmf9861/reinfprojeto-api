@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      
+      >
+      
+<h:head>
+    <title>Seleção de CNPJ</title>
+</h:head>
+<h:body>
+    <h:form>
+        <h:outputLabel for="cnpj" value="Selecione o CNPJ: " />
+        <p:selectOneMenu id="cnpj" value="#{cnpjBean.selectedCnpj}">
+            <f:selectItem itemLabel="Selecione" itemValue="" />
+            <f:selectItems value="#{cnpjBean.cnpjs}" />
+        </p:selectOneMenu>
+        <p:commandButton value="Próximo" action="selectEvent?faces-redirect=true" update="@form"/>
+    </h:form>
+</h:body>
+</html>
