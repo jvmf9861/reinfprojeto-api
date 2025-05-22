@@ -18,6 +18,7 @@ public class EventBean {
         events.add("DDF009");
         events.add("DDF021");
         events.add("DDF025");
+        events.add("DDF016");
     }
 
     public String getSelectedEvent() {
