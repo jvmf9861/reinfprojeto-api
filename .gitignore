@@ -1,0 +1,12 @@
+# Eclipse
+workspace/.metadata/
+
+# Logs
+*.log
+
+# Build
+target/
+
+# Sistema
+.DS_Store
+Thumbs.db
